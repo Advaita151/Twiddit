@@ -2,30 +2,15 @@ import React from 'react';
 import logo from '../logo.png';
 import {ArrowCircleUpIcon, ChatIcon, ChevronDownIcon, SearchIcon} from '@heroicons/react/solid';
 import {BellIcon, LoginIcon, PlusIcon, UserIcon} from '@heroicons/react/outline';
-import avatar from '../avatar.png';
+//import avatar from '../avatar.png';
 import Button from './button';
-import { useState,useEffect,useRef } from 'react';
+import { useState} from 'react';
+import ClickOutHandler from 'react-clickout-handler';
 
 export default function Header() {
   
   const [defaultVisibilityClass, setDefaultVisibilityClass] = useState('hidden');
-
-  function UserDrop(ref){
-    useEffect(() => {
-      function handleClickOutside(event) {
-        if (ref.current && !ref.current.contains(event.target)) {
-          setDefaultVisibilityClass('hidden')
-        }
-      }
-      
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref])};
-  const userDropRef = useRef(null);
-  UserDrop(userDropRef);  
+ 
   function toggleUser(){
     if(defaultVisibilityClass === 'hidden'){
       setDefaultVisibilityClass('block')
@@ -68,7 +53,7 @@ export default function Header() {
         <Button>Sign Up</Button>
       </div>
 
-
+      <ClickOutHandler onClickOut ={() =>setDefaultVisibilityClass('hidden')}>
       <button className='px-2 flex rounded-md border border-gray-800 hover:opacity-80' onClick={() => toggleUser()}>
         {/* <img src={avatar} className='h-8 w-8' alt="" /> */}
         <UserIcon className='text-gray-400 h-8 w-6'/>
@@ -80,6 +65,7 @@ export default function Header() {
           Login/Sign up
         </button>
       </div>
+      </ClickOutHandler>
     </header>
     </>
   )
