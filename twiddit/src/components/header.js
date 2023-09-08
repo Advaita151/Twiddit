@@ -4,8 +4,10 @@ import {ArrowCircleUpIcon, ChatIcon, ChevronDownIcon, SearchIcon} from '@heroico
 import {BellIcon, LoginIcon, PlusIcon, UserIcon} from '@heroicons/react/outline';
 //import avatar from '../avatar.png';
 import Button from './button';
-import { useState} from 'react';
+import { useState, useContext} from 'react';
 import ClickOutHandler from 'react-clickout-handler';
+import AuthContext from './AuthContext';
+
 
 export default function Header() {
   
@@ -18,6 +20,9 @@ export default function Header() {
       setDefaultVisibilityClass('hidden')
     }
   }
+
+  const authContext = useContext(AuthContext);
+
   return (
     <>
     <header className="flex bg-reddit_dark p-2">
@@ -48,8 +53,8 @@ export default function Header() {
       <button className='px-2'>
         <PlusIcon className='text-white h-8 w-6 mx-3'/>
       </button> */}
-      <div className='mx-2'>
-        <Button outline>Login</Button>
+      <div className='mx-2' onClick={() => authContext.setShow(true)}>
+        <Button outline >Login</Button>
         <Button>Sign Up</Button>
       </div>
 
@@ -60,7 +65,7 @@ export default function Header() {
         <ChevronDownIcon className='text-gray-300 h-8 w-6'/>
       </button>
       <div className={'absolute right-0 top-12 bg-reddit_dark border border-gray-700 z-10 rounded-md ' + defaultVisibilityClass}>
-        <button className='text-reddit_text hover:bg-gray-300 hover:text-reddit_dark flex py-2 px-3 text-sm'>
+        <button className='text-reddit_text hover:bg-gray-300 hover:text-reddit_dark flex py-2 px-3 text-sm' onClick={() => authContext.setShow(true)}>
           <LoginIcon className='h-6 w-6 mr-2'/>
           Login/Sign up
         </button>
